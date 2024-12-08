@@ -23,13 +23,15 @@ const Shop = () => {
   const [sortBy, setSortBy] = useState('');
   const [isNew, setIsNew] = useState('');
 
-  
+  // Fetching categories, colors, tags, sizes only once when component mounts
+  useEffect(() => {
     dispatch(getAllSizes());
     dispatch(getAllColors());
     dispatch(getAllTags());
     dispatch(getAllCategories());
-  }, []);
+  }, [dispatch]);
 
+  // Fetching filtered products based on the selected filters
   useEffect(() => {
     dispatch(getFilteredProducts({
       page: currentpage,
@@ -67,7 +69,8 @@ const Shop = () => {
           isNew={isNew}
           totalProductCount={totalProductCount}
           setIsNew={setIsNew}
-        /></Reveal>
+        />
+      </Reveal>
       <Reveal>
         <Cards
           gridClass={gridClass}
@@ -78,7 +81,8 @@ const Shop = () => {
       </Reveal>
       <Reveal><FeaturesBar /></Reveal>
     </>
-  )
+  );
 }
 
-export default Shop
+export default Shop;
+
